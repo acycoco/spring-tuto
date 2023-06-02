@@ -30,11 +30,29 @@ public class DemoApplication {
 	public CommandLineRunner demo(CustomerRepository repository) {   //의존성 주입 자동으로 입력해줌
 		return args -> {
 			repository.save(new Customer("leo", "aa"));
+			repository.save(new Customer("leo2", "aa"));
+			repository.save(new Customer("yui", "bb"));
+			repository.save(new Customer("jun", "cc"));
 
+			log.info("FindAll-----------------------------");
 			for (Customer customer: repository.findAll()){
 				log.info(customer.toString());
 			}
 			log.info("");
+
+			log.info("FindById-----------------------------");
+			Customer customer = repository.findById(1L);//1이라는 id를 가진
+			log.info(customer.toString());
+			log.info("");
+
+
+			log.info("FindByLastName-----------------------------");
+			repository.findByLastName("aa").forEach(c -> {
+				log.info(c.toString());
+			});//1이라는 id를 가진
+			log.info("");
+
+
 		};
 	}
 }
